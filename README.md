@@ -1,30 +1,34 @@
 # rt-yt-knowledge
 
-Knowledge corpus for the Rising Tides YouTube long-form growth lab.
+The **corpus** for the Rising Tides YouTube Growth Arm — the shared brain every operator and every Claude clones to learn what works. This is where reverse-engineering compounds: one operator's teardown becomes every operator's edge.
 
-Per `rt-yt-substrate`, this repo owns:
+> If the playbook (`youtube-growth-playbook`) is the *method* and the substrate (`rt-yt-substrate`) is the *machine*, this repo is the *memory*. Empty memory = every operator relearns the same lessons. Fill it.
 
-- **Channel teardowns** — niche intelligence, competitive comps, RPM bands, asset feasibility
-- **Format library** — replicable video templates and script skeletons
-- **Prompt evolutions** — versioned prompt history per stage
-- **Tool evals** — production-tool comparisons and stack decisions
-
-Every Claude that needs the corpus clones this repo. Postgres (`rt-yt-automations`) remains the source of truth for pipeline *state*; this repo holds the durable *knowledge*.
-
-## Layout
+## Structure
 
 ```
 rt-yt-knowledge/
-├── teardowns/      ← niche + channel teardowns (one .md per niche)
-├── formats/        ← format library (templates, script skeletons)   [tbd]
-├── prompts/        ← prompt evolutions per stage                     [tbd]
-└── tool-evals/     ← production-tool comparisons                     [tbd]
+├── lanes/                  # per-operator, per-niche knowledge (cross-readable)
+│   ├── aviation/           # Glitch
+│   ├── history/            # Sam
+│   ├── ai-dev/             # John Smathers
+│   └── meditation/         # unassigned
+│       ├── teardowns/      # competitor channel teardowns
+│       ├── script-bible.md
+│       ├── hook-patterns.md
+│       ├── thumbnail-patterns.md
+│       └── rpm-notes.md
+├── _templates/             # fill-in templates (teardown, winner-log entry, script bible)
+├── winner-log/             # cross-lane log of what over-indexed and why
+└── format-library/         # reusable format/structure patterns, lane-agnostic
 ```
 
-## Teardowns
+## The two rules
 
-| Niche | Lane owner | RPM band | Status |
-|---|---|---|---|
-| [AI / Software-Dev](teardowns/ai-dev-niche.md) | Sam | $10–14 ($18+ on SaaS/dev-tool) | Draft |
+1. **Every teardown uses the template.** Consistency is what makes the corpus queryable by the agent swarm.
+2. **Every over-indexer gets a winner-log entry.** When a video pops, the lesson belongs to the whole portfolio, not one operator's head.
 
-Teardown format: TL;DR call → channel comps → RPM bands → sub-lane map → asset feasibility (vs our stack) → strike risk → SEO/topics → format templates → evergreen-vs-trending math → path to monetization → name candidates → launch recipe → repo placement.
+## How it's fed
+- **Operators** drop teardowns + winner-log entries as they research/ship.
+- **The teardown swarm** (agents) proactively tears down target competitors and opens PRs.
+- **The substrate** syncs winning patterns back via `/winner-log`, `/teardown`, `/format-extract` skills.
